@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
 @AllArgsConstructor
@@ -31,6 +32,9 @@ public class User {
 
     @Column(name = "data_cadastro")
     private LocalDateTime dataCadastro;
+
+    @OneToMany(mappedBy = "user")
+    private List<Lembrete> lembretes;
 
     @PrePersist
     public void prePersist(){
