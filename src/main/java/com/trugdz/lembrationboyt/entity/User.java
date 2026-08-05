@@ -15,7 +15,7 @@ import java.util.UUID;
 @Getter
 @Setter
 @Entity
-@Table(name = "tb_users")
+@Table(name = "tb_usuarios")
 public class User {
 
     @Id
@@ -33,7 +33,7 @@ public class User {
     @Column(name = "data_cadastro")
     private LocalDateTime dataCadastro;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private List<Lembrete> lembretes;
 
     @PrePersist
