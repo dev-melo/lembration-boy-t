@@ -10,6 +10,7 @@ import lombok.Setter;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.List;
 import java.util.UUID;
 
 @AllArgsConstructor
@@ -28,6 +29,7 @@ public class Lembrete {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
+    @Column(nullable = false, length = 500)
     private String mensagem;
 
     @Enumerated(EnumType.STRING)
@@ -35,6 +37,7 @@ public class Lembrete {
     private TipoLembrete tipo;
 
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false, name = "status_lembrete")
     private StatusLembrete status;
 
     @Column(name = "hora_inicio")
@@ -43,11 +46,14 @@ public class Lembrete {
     @Column(name = "hora_fim")
     private LocalTime horaFim;
 
-    @Column(name = "intervalo_minutos")
+    @Column(name = "intervalo_minutos", nullable = false)
     private Integer intervaloMinutos;
 
-    @Column(name = "data_criacao")
+    @Column(name = "data_criacao", nullable = false)
     private LocalDateTime dataCriacao;
+
+    @OneToMany(mappedBy = "lembrete", fetch = FetchType.LAZY)
+    private List<Historico> historicos;
 
     @PrePersist
     public void prePersist(){
